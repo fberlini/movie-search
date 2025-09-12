@@ -54,7 +54,7 @@ TestResult.xml
 nunit-*.xml
 
 # Docker
-./docker
+docker
 
 # Env
 .env
