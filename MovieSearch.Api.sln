@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api", "MovieSearch.Api\MovieSearch.Api.csproj", "{FC79FF68-90A2-4720-96BB-6936BE69D3BB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC368C84-7CB6-4C98-85D4-42D97D41108E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api", "src\MovieSearch.Api\MovieSearch.Api.csproj", "{08628458-3DC8-441D-8C3E-1171987A5BC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api.Domain", "src\MovieSearch.Api.Domain\MovieSearch.Api.Domain.csproj", "{60200C39-A521-498D-864D-2B42687DFD3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api.Application", "src\MovieSearch.Api.Application\MovieSearch.Api.Application.csproj", "{F797060F-7160-4845-B94B-1525E46719B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api.Infrastructure", "src\MovieSearch.Api.Infrastructure\MovieSearch.Api.Infrastructure.csproj", "{02456216-0CAA-4F16-9D13-43AC0A456B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSearch.Api.Shared", "src\MovieSearch.Api.Shared\MovieSearch.Api.Shared.csproj", "{6FCB9576-8226-4432-9C75-97FAB03EC145}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +24,32 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC79FF68-90A2-4720-96BB-6936BE69D3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC79FF68-90A2-4720-96BB-6936BE69D3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC79FF68-90A2-4720-96BB-6936BE69D3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC79FF68-90A2-4720-96BB-6936BE69D3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08628458-3DC8-441D-8C3E-1171987A5BC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08628458-3DC8-441D-8C3E-1171987A5BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08628458-3DC8-441D-8C3E-1171987A5BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08628458-3DC8-441D-8C3E-1171987A5BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60200C39-A521-498D-864D-2B42687DFD3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60200C39-A521-498D-864D-2B42687DFD3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60200C39-A521-498D-864D-2B42687DFD3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60200C39-A521-498D-864D-2B42687DFD3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F797060F-7160-4845-B94B-1525E46719B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F797060F-7160-4845-B94B-1525E46719B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F797060F-7160-4845-B94B-1525E46719B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F797060F-7160-4845-B94B-1525E46719B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02456216-0CAA-4F16-9D13-43AC0A456B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02456216-0CAA-4F16-9D13-43AC0A456B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02456216-0CAA-4F16-9D13-43AC0A456B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02456216-0CAA-4F16-9D13-43AC0A456B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCB9576-8226-4432-9C75-97FAB03EC145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCB9576-8226-4432-9C75-97FAB03EC145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCB9576-8226-4432-9C75-97FAB03EC145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCB9576-8226-4432-9C75-97FAB03EC145}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{08628458-3DC8-441D-8C3E-1171987A5BC8} = {DC368C84-7CB6-4C98-85D4-42D97D41108E}
+		{60200C39-A521-498D-864D-2B42687DFD3A} = {DC368C84-7CB6-4C98-85D4-42D97D41108E}
+		{F797060F-7160-4845-B94B-1525E46719B0} = {DC368C84-7CB6-4C98-85D4-42D97D41108E}
+		{02456216-0CAA-4F16-9D13-43AC0A456B54} = {DC368C84-7CB6-4C98-85D4-42D97D41108E}
+		{6FCB9576-8226-4432-9C75-97FAB03EC145} = {DC368C84-7CB6-4C98-85D4-42D97D41108E}
 	EndGlobalSection
 EndGlobal
