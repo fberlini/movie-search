@@ -9,6 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieSearch.Api.Domain\MovieSearch.Api.Domain.csproj" />
     <ProjectReference Include="..\MovieSearch.Api.Application\MovieSearch.Api.Application.csproj" />
+    <ProjectReference Include="..\MovieSearch.Api.Shared\MovieSearch.Api.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.8" />
   </ItemGroup>
 
 </Project>
