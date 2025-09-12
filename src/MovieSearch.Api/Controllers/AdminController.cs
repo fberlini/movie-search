@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieSearch.Api.Filters;
 
 namespace MovieSearch.Api.Controller;
 
 [ApiController]
 [Route("api/admin")]
+[ServiceFilter(typeof(ApiKeyAuthFilter))]
 public class AdminController : ControllerBase
 {
     [HttpGet]

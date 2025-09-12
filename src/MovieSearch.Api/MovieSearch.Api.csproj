@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieSearch.Api.Application\MovieSearch.Api.Application.csproj" />
     <ProjectReference Include="..\MovieSearch.Api.Infrastructure\MovieSearch.Api.Infrastructure.csproj" />
+    <ProjectReference Include="..\MovieSearch.Api.Shared\MovieSearch.Api.Shared.csproj" />
   </ItemGroup>
 
 </Project>
