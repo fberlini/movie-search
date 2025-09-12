@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieSearch.Api.Application.Contracts;
 
-namespace MovieSearch.Api.Controller;
+namespace MovieSearch.Api.Controllers;
 
 [ApiController]
 [Route("api/movies")]
-public class MovieSearchController : ControllerBase
+public class MovieSearchController(IMovieSearchService movieSearchService) : ControllerBase
 {
     [HttpGet]
-    public ActionResult Search()
+    public ActionResult Search([FromQuery] string movieTitle)
     {
-        throw new Exception("Not implemented");
+        return Ok(movieSearchService.SearchMovies(movieTitle));
     }
 }

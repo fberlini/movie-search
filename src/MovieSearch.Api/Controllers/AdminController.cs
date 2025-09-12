@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieSearch.Api.Filters;
 
-namespace MovieSearch.Api.Controller;
+namespace MovieSearch.Api.Controllers;
 
 [ApiController]
 [Route("api/admin")]
