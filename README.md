@@ -2,6 +2,25 @@
 
 A .NET 9 Web API that provides movie search functionality using the OMDB API and stores request analytics in MongoDB.
 
+## Assignment Details
+
+### Estimative
+- 8h
+
+### Time spent
+- Friday Sep 12th: **5h**
+- Saturday Sep 13th: **5h**
+
+I encountered a few issues with the OMDB API integration, primarily because some API keys I created didn't work initially. After several attempts, I was finally able to create a working API key. Additionally, I'm not very familiar with NoSQL databases, so I spent some time configuring MongoDB and getting it to work properly. I also had some issues with localhost permissions, which required me to dig deeper into how to resolve them.
+
+### Overall architecture
+
+I tried to follow clean architecture and SOLID principles. I splited the application into Domain, Application, Infrastructure, and Presentation layers, added contract interfaces for decoupling and dependency inversion, and attempted to follow a single responsibility approach. I also added a `Shared` project that contains classes used by all layers, such as Exceptions and Options definitions.
+
+### Improvements for the future
+
+The API is not production-ready yet. I would add logging, OpenTelemetry, write unit and integration tests, and implement a proper CI/CD pipeline.
+
 ## Features
 
 - 🔍 Search movies by title using OMDB API
