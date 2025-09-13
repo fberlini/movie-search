@@ -3,6 +3,8 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using MovieSearch.Api.Application.Contracts;
 using MovieSearch.Api.Domain.Entities;
+using MovieSearch.Api.Infrastructure.Integrations.Dtos;
+using MovieSearch.Api.Infrastructure.Integrations.Mappers;
 using MovieSearch.Api.Shared.Exceptions.Integrations;
 using MovieSearch.Api.Shared.Options;
 
@@ -27,8 +29,9 @@ public class MovieApiClient(IOptions<MovieApiOptions> options) : IMovieApiClient
 
             try
             {
-                var movie = JsonSerializer.Deserialize<Movie>(content);
-                return movie ?? throw new MovieApiNotFoundException();
+                var movie = JsonSerializer.Deserialize<MovieDto>(content) ?? throw new MovieApiNotFoundException();
+                var movieDomain = movie.ToDomain();
+                return movieDomain;
             }
             catch (JsonException)
             {
