@@ -6,7 +6,9 @@ namespace MovieSearch.Api.Application.Contracts;
 public interface IAdminService
 {
     Task<MovieRequest> CreateRequest(CreateRequestDto request);
-    Task<MovieRequest[]> GetRequests(DateTime? startDate, DateTime? endDate);
+    Task<MovieRequest[]> GetRequests();
+    Task<MovieRequest[]> GetRequestsByDateRange(DateTime startDate, DateTime endDate);
+    Task<long> GetSummaryOfDay(DateTime date);
     Task<MovieRequest> GetRequest(Guid id);
     Task<MovieRequest[]> GetRequestsByIpAddress(string ipAddress);
     Task DeleteRequest(Guid id);

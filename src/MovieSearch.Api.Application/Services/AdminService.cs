@@ -55,28 +55,47 @@ public class AdminService(IRequestRepository requestRepository) : IAdminService
         }
     }
 
-    public async Task<MovieRequest[]> GetRequests(DateTime? startDate, DateTime? endDate)
+    public async Task<MovieRequest[]> GetRequests()
     {
         try
         {
-            if (startDate == null && endDate == null)
-            {
-                return await _requestRepository.GetRequests();
-            }
-            else if (startDate != null && endDate == null)
-            {
-                return await _requestRepository.GetRequestsByDay(startDate.Value);
-            }
-            else if (startDate != null && endDate != null)
-            {
-                return await _requestRepository.GetRequestsRange(startDate.Value, endDate.Value);
-            }
+            return await _requestRepository.GetRequests();
         }
         catch (Exception exception)
         {
             throw HandleExceptions(exception);
         }
-        throw new AdminServiceDateRangeInvalidException();
+    }
+
+    public async Task<MovieRequest[]> GetRequestsByDateRange(DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            if (startDate > endDate)
+            {
+                throw new AdminServiceDateRangeInvalidException();
+            }
+            
+            var startOfRange = new DateTime(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0);
+            var endOfRange = new DateTime(endDate.Year, endDate.Month, endDate.Day, 23, 59, 59);
+            return await _requestRepository.GetRequestsRange(startOfRange, endOfRange);
+        }
+        catch (Exception exception)
+        {
+            throw HandleExceptions(exception);
+        }
+    }
+
+    public async Task<long> GetSummaryOfDay(DateTime date)
+    {
+        try
+        {
+            return await _requestRepository.GetRequestsByDay(date);
+        }
+        catch (Exception exception)
+        {
+            throw HandleExceptions(exception);
+        }
     }
 
     public async Task<MovieRequest[]> GetRequestsByIpAddress(string ipAddress)
@@ -91,7 +110,7 @@ public class AdminService(IRequestRepository requestRepository) : IAdminService
         }
     }
 
-    private Exception HandleExceptions(Exception exception)
+    private static Exception HandleExceptions(Exception exception)
     {
         if (exception is MovieRequestNotFoundException)
         {

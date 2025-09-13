@@ -13,29 +13,46 @@ public class AdminController(IAdminService adminService) : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetRequests([FromQuery] string? startDate, [FromQuery] string? endDate)
     {
-        DateTime? startDateValue = null;
-        DateTime? endDateValue = null;
-
-        if (startDate != null)
+        if (startDate == null && endDate == null)
         {
-            if (!DateTime.TryParse(startDate, out var parsedStartDate))
-            {
-                return BadRequest("Invalid start date");
-            }
-            startDateValue = parsedStartDate;
+            return Ok(await adminService.GetRequests());
         }
 
-        if (endDate != null)
+        if (startDate != null && endDate != null)
         {
-            if (startDate == null || !DateTime.TryParse(endDate, out var parsedEndDate))
+            if (
+                !DateTime.TryParse(startDate, out var parsedStartDate) ||
+                !DateTime.TryParse(endDate, out var parsedEndDate) ||
+                parsedStartDate > parsedEndDate
+            )
             {
-                return BadRequest("Invalid end date");
+                return BadRequest("Invalid date range");
             }
-            endDateValue = parsedEndDate;
+
+            try
+            {
+                return Ok(await adminService.GetRequestsByDateRange(parsedStartDate, parsedEndDate));
+            }
+            catch (Exception exception)
+            {
+                return HandleExceptions(exception);
+            }
         }
+
+        return BadRequest("Invalid date range");
+    }
+
+    [HttpGet("summary")]
+    public async Task<ActionResult> GetSummary([FromQuery] string date)
+    {
+        if (string.IsNullOrEmpty(date) || !DateTime.TryParse(date, out var parsedDate))
+        {
+            return BadRequest("Invalid date");
+        }
+
         try
         {
-            return Ok(await adminService.GetRequests(startDateValue, endDateValue));
+            return Ok(await adminService.GetSummaryOfDay(parsedDate));
         }
         catch (Exception exception)
         {

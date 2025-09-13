@@ -70,7 +70,7 @@ public class RequestRepository(IMongoDbConnectionProvider mongoDbConnectionProvi
         }
     }
 
-    public async Task<MovieRequest[]> GetRequestsByDay(DateTime date)
+    public async Task<long> GetRequestsByDay(DateTime date)
     {
         try
         {
@@ -80,8 +80,8 @@ public class RequestRepository(IMongoDbConnectionProvider mongoDbConnectionProvi
                 Builders<MovieRequestDto>.Filter.Gte(x => x.Timestamp, startOfDay),
                 Builders<MovieRequestDto>.Filter.Lt(x => x.Timestamp, endOfDay)
             );
-            var requests = await _collection.Find(filter).ToListAsync();
-            return requests.ToArray().ToDomainArray();
+            var requests = await _collection.CountDocumentsAsync(filter);
+            return requests;
         }
         catch (Exception)
         {
