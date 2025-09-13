@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieSearch.Api.Domain\MovieSearch.Api.Domain.csproj" />
+    <ProjectReference Include="..\MovieSearch.Api.Shared\MovieSearch.Api.Shared.csproj" />
   </ItemGroup>
 
 </Project>

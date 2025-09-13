@@ -4,5 +4,5 @@ namespace MovieSearch.Api.Application.Contracts;
 
 public interface IMovieSearchService
 {
-    Task<Movie> SearchMovies(string movieTitle);
+    Task<Movie> SearchMovies(string movieTitle, string ipAddress);
 }

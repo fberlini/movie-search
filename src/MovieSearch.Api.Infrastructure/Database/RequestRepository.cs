@@ -17,15 +17,15 @@ public class RequestRepository(IMongoDbConnectionProvider mongoDbConnectionProvi
         return request;
     }
 
-    public async Task DeleteRequest(string id)
+    public async Task DeleteRequest(Guid id)
     {
-        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, Guid.Parse(id));
+        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
         await _collection.FindOneAndDeleteAsync(filter);
     }
 
-    public async Task<MovieRequest> GetRequestById(string id)
+    public async Task<MovieRequest> GetRequestById(Guid id)
     {
-        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, Guid.Parse(id));
+        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
         var request = await _collection.Find(filter).FirstOrDefaultAsync();
         return request.ToDomain();
     }

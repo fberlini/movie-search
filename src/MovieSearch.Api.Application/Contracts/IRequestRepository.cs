@@ -8,7 +8,7 @@ public interface IRequestRepository
     Task<MovieRequest[]> GetRequestsRange(DateTime startDate, DateTime endDate);
     Task<MovieRequest[]> GetRequestsByDay(DateTime date);
     Task<MovieRequest[]> GetRequestsByIpAddress(string ipAddress);
-    Task<MovieRequest> GetRequestById(string id);
+    Task<MovieRequest> GetRequestById(Guid id);
     Task<MovieRequest> CreateRequest(MovieRequest request);
-    Task DeleteRequest(string id);
+    Task DeleteRequest(Guid id);
 }

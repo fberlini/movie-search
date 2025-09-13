@@ -1,9 +1,11 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace MovieSearch.Api.Infrastructure.Database.Dtos;
 
 public class MovieRequestDto
 {
     [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
     
     [BsonElement("searchToken")]

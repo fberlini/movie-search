@@ -11,7 +11,8 @@ public class MovieSearchController(IMovieSearchService movieSearchService) : Con
     [HttpGet]
     public async Task<ActionResult<Movie>> Search([FromQuery] string movieTitle)
     {
-        var movie = await movieSearchService.SearchMovies(movieTitle);
+        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
+        var movie = await movieSearchService.SearchMovies(movieTitle, ipAddress);
         return Ok(movie);
     }
 }

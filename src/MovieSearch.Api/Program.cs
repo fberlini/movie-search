@@ -19,6 +19,7 @@ builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection(MongoO
 builder.Services.AddScoped<ApiKeyAuthFilter>();
 builder.Services.AddScoped<IMovieSearchService, MovieSearchService>();
 builder.Services.AddScoped<IMovieApiClientContract, MovieApiClient>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddSingleton<IMongoDbConnectionProvider, MongoDbConnectionProvider>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
