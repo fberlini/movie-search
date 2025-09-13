@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieSearch.Api.Application.Contracts;
+using MovieSearch.Api.Domain.Entities;
 
 namespace MovieSearch.Api.Controllers;
 
@@ -8,8 +9,9 @@ namespace MovieSearch.Api.Controllers;
 public class MovieSearchController(IMovieSearchService movieSearchService) : ControllerBase
 {
     [HttpGet]
-    public ActionResult Search([FromQuery] string movieTitle)
+    public async Task<ActionResult<Movie>> Search([FromQuery] string movieTitle)
     {
-        return Ok(movieSearchService.SearchMovies(movieTitle));
+        var movie = await movieSearchService.SearchMovies(movieTitle);
+        return Ok(movie);
     }
 }

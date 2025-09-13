@@ -5,7 +5,7 @@ namespace MovieSearch.Api.Application.Services;
 
 public class MovieSearchService(IMovieApiClientContract movieApiClient) : IMovieSearchService
 {
-    public Task<Movie[]> SearchMovies(string movieTitle)
+    public Task<Movie> SearchMovies(string movieTitle)
     {
         return movieApiClient.SearchMovies(movieTitle);
     }

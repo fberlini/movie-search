@@ -13,7 +13,7 @@ public class MovieApiClient(IOptions<MovieApiOptions> options) : IMovieApiClient
     private readonly string _baseUrl = options.Value.BaseUrl;
     private readonly string _apiKey = options.Value.ApiKey;
 
-    public async Task<Movie[]> SearchMovies(string movieTitle)
+    public async Task<Movie> SearchMovies(string movieTitle)
     {
         using (var httpClient = new HttpClient())
         {
@@ -27,8 +27,7 @@ public class MovieApiClient(IOptions<MovieApiOptions> options) : IMovieApiClient
 
             try
             {
-                
-                var movie = JsonSerializer.Deserialize<Movie[]>(content);
+                var movie = JsonSerializer.Deserialize<Movie>(content);
                 return movie ?? throw new MovieApiNotFoundException();
             }
             catch (JsonException)

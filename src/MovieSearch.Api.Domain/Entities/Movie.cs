@@ -2,22 +2,22 @@ namespace MovieSearch.Api.Domain.Entities
 {
     public class Movie
     {
-        public required string Title { get; set; }
-        public int Year { get; set; }
-        public required string Rated { get; set; }
-        public DateTime Released { get; set; }
-        public required string Runtime { get; set; }
-        public required string Genre { get; set; }
-        public required string Director { get; set; }
-        public required string Writer { get; set; }
-        public required string Actors { get; set; }
-        public required string Plot { get; set; }
-        public required string Language { get; set; }
-        public required string Country { get; set; }
+        public string? Title { get; set; }
+        public string? Year { get; set; }
+        public string? Rated { get; set; }
+        public string? Released { get; set; }
+        public string? Runtime { get; set; }
+        public string? Genre { get; set; }
+        public string? Director { get; set; }
+        public string? Writer { get; set; }
+        public string? Actors { get; set; }
+        public string? Plot { get; set; }
+        public string? Language { get; set; }
+        public string? Country { get; set; }
         public string? Awards { get; set; }
         public string? Poster { get; set; }
-        public int ImdbRating { get; set; }
-        public int ImbdVotes { get; set; }
+        public string? ImdbRating { get; set; }
+        public string? ImbdVotes { get; set; }
         public string? ImdbId { get; set; }
 
     }
