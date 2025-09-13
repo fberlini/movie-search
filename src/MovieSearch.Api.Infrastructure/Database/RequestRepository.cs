@@ -3,6 +3,7 @@ using MovieSearch.Api.Application.Contracts;
 using MovieSearch.Api.Domain.Entities;
 using MovieSearch.Api.Infrastructure.Database.Dtos;
 using MovieSearch.Api.Infrastructure.Database.Mappers;
+using MovieSearch.Api.Shared.Exceptions.Repositories;
 
 namespace MovieSearch.Api.Infrastructure.Database;
 
@@ -12,56 +13,110 @@ public class RequestRepository(IMongoDbConnectionProvider mongoDbConnectionProvi
 
     public async Task<MovieRequest> CreateRequest(MovieRequest request)
     {
-        var dto = request.ToDto();
-        await _collection.InsertOneAsync(dto);
-        return request;
+        try
+        {
+            var dto = request.ToDto();
+            await _collection.InsertOneAsync(dto);
+            return request;
+        }
+        catch (Exception)
+        {
+            throw new CreateRequestFailedException();
+        }
     }
 
     public async Task DeleteRequest(Guid id)
     {
-        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
-        await _collection.FindOneAndDeleteAsync(filter);
+        try
+        {
+            var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
+            await _collection.FindOneAndDeleteAsync(filter);
+        }
+        catch (Exception)
+        {
+            throw new DeleteRequestFailedException();
+        }
     }
 
     public async Task<MovieRequest> GetRequestById(Guid id)
     {
-        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
-        var request = await _collection.Find(filter).FirstOrDefaultAsync();
-        return request.ToDomain();
+        try
+        {
+            var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.Id, id);
+            var request = await _collection.Find(filter).FirstOrDefaultAsync() ?? throw new MovieRequestNotFoundException();
+            return request.ToDomain();
+        }
+        catch (Exception exception)
+        {
+            if (exception is MovieRequestNotFoundException)
+            {
+                throw;
+            }
+
+            throw new GetRequestFailedException();
+        }
     }
 
     public async Task<MovieRequest[]> GetRequests()
     {
-        var requests = await _collection.Find(_ => true).ToListAsync();
-        return requests.ToArray().ToDomainArray();
+        try
+        {
+            var requests = await _collection.Find(_ => true).ToListAsync();
+            return requests.ToArray().ToDomainArray();
+        }
+        catch (Exception)
+        {
+            throw new GetRequestFailedException();
+        }
     }
 
     public async Task<MovieRequest[]> GetRequestsByDay(DateTime date)
     {
-        var startOfDay = date.Date;
-        var endOfDay = startOfDay.AddDays(1);
-        var filter = Builders<MovieRequestDto>.Filter.And(
-            Builders<MovieRequestDto>.Filter.Gte(x => x.Timestamp, startOfDay),
-            Builders<MovieRequestDto>.Filter.Lt(x => x.Timestamp, endOfDay)
-        );
-        var requests = await _collection.Find(filter).ToListAsync();
-        return requests.ToArray().ToDomainArray();
+        try
+        {
+            var startOfDay = date.Date;
+            var endOfDay = startOfDay.AddDays(1);
+            var filter = Builders<MovieRequestDto>.Filter.And(
+                Builders<MovieRequestDto>.Filter.Gte(x => x.Timestamp, startOfDay),
+                Builders<MovieRequestDto>.Filter.Lt(x => x.Timestamp, endOfDay)
+            );
+            var requests = await _collection.Find(filter).ToListAsync();
+            return requests.ToArray().ToDomainArray();
+        }
+        catch (Exception)
+        {
+            throw new GetRequestFailedException();
+        }
     }
 
     public async Task<MovieRequest[]> GetRequestsByIpAddress(string ipAddress)
     {
-        var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.IpAddress, ipAddress);
-        var requests = await _collection.Find(filter).ToListAsync();
-        return requests.ToArray().ToDomainArray();
+        try
+        {
+            var filter = Builders<MovieRequestDto>.Filter.Eq(x => x.IpAddress, ipAddress);
+            var requests = await _collection.Find(filter).ToListAsync();
+            return requests.ToArray().ToDomainArray();
+        }
+        catch (Exception)
+        {
+            throw new GetRequestFailedException();
+        }
     }
 
     public async Task<MovieRequest[]> GetRequestsRange(DateTime startDate, DateTime endDate)
     {
-        var filter = Builders<MovieRequestDto>.Filter.And(
-            Builders<MovieRequestDto>.Filter.Gte(x => x.Timestamp, startDate),
-            Builders<MovieRequestDto>.Filter.Lte(x => x.Timestamp, endDate)
-        );
-        var requests = await _collection.Find(filter).ToListAsync();
-        return requests.ToArray().ToDomainArray();
+        try
+        {
+            var filter = Builders<MovieRequestDto>.Filter.And(
+                Builders<MovieRequestDto>.Filter.Gte(x => x.Timestamp, startDate),
+                Builders<MovieRequestDto>.Filter.Lte(x => x.Timestamp, endDate)
+            );
+            var requests = await _collection.Find(filter).ToListAsync();
+            return requests.ToArray().ToDomainArray();
+        }
+        catch (Exception)
+        {
+            throw new GetRequestFailedException();
+        }
     }
 }
