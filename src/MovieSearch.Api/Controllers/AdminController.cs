@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieSearch.Api.Application.Contracts;
+using MovieSearch.Api.Domain.Entities;
 using MovieSearch.Api.Filters;
 using MovieSearch.Api.Shared.Exceptions.Services;
 
@@ -10,8 +11,8 @@ namespace MovieSearch.Api.Controllers;
 [ServiceFilter(typeof(ApiKeyAuthFilter))]
 public class AdminController(IAdminService adminService) : ControllerBase
 {
-    [HttpGet]
-    public async Task<ActionResult> GetRequests([FromQuery] string? startDate, [FromQuery] string? endDate)
+    [HttpGet("requests")]
+    public async Task<ActionResult<IEnumerable<MovieRequest>>> GetRequests([FromQuery] string? startDate, [FromQuery] string? endDate)
     {
         if (startDate == null && endDate == null)
         {
@@ -42,8 +43,8 @@ public class AdminController(IAdminService adminService) : ControllerBase
         return BadRequest("Invalid date range");
     }
 
-    [HttpGet("summary")]
-    public async Task<ActionResult> GetSummary([FromQuery] string date)
+    [HttpGet("requests/summary")]
+    public async Task<ActionResult<long>> GetSummary([FromQuery] string date)
     {
         if (string.IsNullOrEmpty(date) || !DateTime.TryParse(date, out var parsedDate))
         {
@@ -60,8 +61,8 @@ public class AdminController(IAdminService adminService) : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult> GetRequest(Guid id)
+    [HttpGet("requests/{id}")]
+    public async Task<ActionResult<MovieRequest>> GetRequest(Guid id)
     {
         try
         {
@@ -73,7 +74,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("requests/{id}")]
     public async Task<ActionResult> DeleteRequest(Guid id)
     {
         try
