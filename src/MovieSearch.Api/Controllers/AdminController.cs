@@ -27,7 +27,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
 
         if (endDate != null)
         {
-            if (!DateTime.TryParse(endDate, out var parsedEndDate))
+            if (startDate == null || !DateTime.TryParse(endDate, out var parsedEndDate))
             {
                 return BadRequest("Invalid end date");
             }
